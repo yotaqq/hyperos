@@ -10,16 +10,18 @@ gdt64:
 .code_segment: equ $ - gdt64
     ; Code segment descriptor
     ; Base = 0, Limit = 0, Present = 1, Executable = 1, Long mode = 1
+    ; Bits: 43=Executable, 44=S, 47=Present, 53=Long mode
     dq (1 << 43) | (1 << 44) | (1 << 47) | (1 << 53)
 
 .data_segment: equ $ - gdt64
     ; Data segment descriptor
     ; Base = 0, Limit = 0, Present = 1, Writable = 1
-    dq (1 << 44) | (1 << 47)
+    ; Bits: 41=Writable, 44=S, 47=Present
+    dq (1 << 41) | (1 << 44) | (1 << 47)
 
 .pointer:
     dw $ - gdt64 - 1        ; Limit (size - 1)
-    dq gdt64                ; Base address
+    dd gdt64                ; Base address (32-bit for lgdt in protected mode)
 
 ; Export symbols
 global gdt64
