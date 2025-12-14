@@ -18,17 +18,6 @@ header_start:
 
     ; Tags go here
 
-    ; Framebuffer tag (optional - for graphics mode)
-    align 8
-framebuffer_tag_start:
-    dw 5                    ; Type = framebuffer
-    dw 0                    ; Flags
-    dd framebuffer_tag_end - framebuffer_tag_start  ; Size
-    dd 1024                 ; Width
-    dd 768                  ; Height
-    dd 32                   ; Depth (bits per pixel)
-framebuffer_tag_end:
-
     ; End tag (required)
     align 8
     dw 0                    ; Type = end tag
